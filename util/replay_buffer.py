@@ -2,6 +2,7 @@ import numpy as np
 
 
 class ReplayBuffer:
+
 	def __init__(self, input_dims, batch_size, mem_size=10000):
 		self.mem_size = mem_size
 		self.mem_ctr = 0
@@ -20,6 +21,9 @@ class ReplayBuffer:
 		self.reward_memory[index] = reward
 		self.terminal_memory[index] = done
 		self.mem_ctr += 1
+
+	def __len__(self):
+		return min(self.mem_ctr, len(self.state_memory))
 
 	def batchable(self):
 		return True if self.mem_ctr > self.batch_size else False

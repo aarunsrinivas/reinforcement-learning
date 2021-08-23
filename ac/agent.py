@@ -45,7 +45,7 @@ class Critic(nn.Module):
 		return x
 
 
-class ActorCriticAgent():
+class ActorCriticAgent:
 	def __init__(self, gamma, input_dims, fc1_dims, fc2_dims, n_actions, batch_size=32, lr=1e-3):
 		self.gamma = gamma
 		self.n_actions = n_actions
@@ -97,7 +97,7 @@ class ActorCriticAgent():
 		self.actor.optimizer.step()
 
 		# train critic
-		if not self.buffer.batchable():
+		if len(self.buffer) < self.batch_size:
 			return
 
 		indices = np.arange(self.batch_size)
